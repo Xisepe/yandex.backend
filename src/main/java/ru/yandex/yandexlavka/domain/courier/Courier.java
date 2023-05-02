@@ -1,30 +1,24 @@
 package ru.yandex.yandexlavka.domain.courier;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
-import java.sql.Time;
 import java.util.List;
 
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Entity
 public class Courier {
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.NONE)
     private Long id;
-    @ElementCollection
-    private List<Time> workingHours;
-    @ElementCollection
-    private List<Integer> regions;
+    @Enumerated(EnumType.STRING)
     private CourierType type;
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true,
+            mappedBy = "courier")
+    private List<WorkingHour> workingHour;
+    @ElementCollection
+    private List<Integer> region;
 
 }
