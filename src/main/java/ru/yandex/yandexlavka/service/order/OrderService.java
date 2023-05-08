@@ -8,7 +8,7 @@ import ru.yandex.yandexlavka.response.OrderAssignResponse;
 import java.util.List;
 
 public interface OrderService {
-    OrderDto createOrder(CreateOrderRequest createOrderRequest);
+    List<OrderDto> createOrders(CreateOrderRequest createOrderRequest);
     List<OrderDto> getOrdersWithLimitAndOffset(int limit, int offset);
     OrderDto getOrderByIdOrThrow(long orderId);
     List<OrderDto> completeOrders(CompleteOrderRequestDto completeOrderRequestDto);
