@@ -1,4 +1,4 @@
-package ru.yandex.yandexlavka.exceptions.handler;
+package ru.yandex.yandexlavka.exceptions.handler.general;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

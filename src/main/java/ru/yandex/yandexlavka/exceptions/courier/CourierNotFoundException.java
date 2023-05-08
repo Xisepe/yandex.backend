@@ -1,4 +1,6 @@
 package ru.yandex.yandexlavka.exceptions.courier;
 
-public class CourierNotFoundException extends RuntimeException {
+import ru.yandex.yandexlavka.exceptions.general.NotFoundException;
+
+public class CourierNotFoundException extends NotFoundException {
 }
