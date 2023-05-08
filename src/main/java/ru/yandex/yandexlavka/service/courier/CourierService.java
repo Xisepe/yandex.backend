@@ -11,6 +11,6 @@ public interface CourierService {
     OrderAssignResponse getCourierAssignmentByDateAndId(String date, long courierId);
     CreateCourierResponse createCouriers(CreateCourierRequest createCourierRequest);
     GetCouriersResponse getCouriersByLimitAndOffset(int limit, int offset);
-    CourierDto getCourierById(long courierId);
+    CourierDto getCourierByIdOrThrow(long courierId);
     GetCourierMetaInfoResponse getCourierMetaInfoByIdAndStartDateAndEndDate(long courierId, String startDate, String endDate);
 }
