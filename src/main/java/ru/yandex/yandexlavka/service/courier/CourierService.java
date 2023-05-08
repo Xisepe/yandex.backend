@@ -10,7 +10,7 @@ import ru.yandex.yandexlavka.response.OrderAssignResponse;
 public interface CourierService {
     OrderAssignResponse getCourierAssignmentByDateAndId(String date, long courierId);
     CreateCourierResponse createCouriers(CreateCourierRequest createCourierRequest);
-    GetCouriersResponse getCouriersByLimitAndOffset(int limit, int offset);
+    GetCouriersResponse getCouriersWithLimitAndOffset(int limit, int offset);
     CourierDto getCourierByIdOrThrow(long courierId);
     GetCourierMetaInfoResponse getCourierMetaInfoByIdAndStartDateAndEndDate(long courierId, String startDate, String endDate);
 }

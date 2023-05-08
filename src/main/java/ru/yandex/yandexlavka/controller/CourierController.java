@@ -35,7 +35,7 @@ public class CourierController {
             @RequestParam(defaultValue = "0", required = false) int offset
     ) {
         try {
-            return courierService.getCouriersByLimitAndOffset(limit, offset);
+            return courierService.getCouriersWithLimitAndOffset(limit, offset);
         } catch (NumberFormatException e) {
             throw new InvalidRequestException();
         }

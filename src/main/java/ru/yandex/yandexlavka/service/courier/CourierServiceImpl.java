@@ -47,7 +47,7 @@ public class CourierServiceImpl implements CourierService {
     }
 
     @Override
-    public GetCouriersResponse getCouriersByLimitAndOffset(int limit, int offset) {
+    public GetCouriersResponse getCouriersWithLimitAndOffset(int limit, int offset) {
         List<CourierDto> courierDtoList = courierRepository
                 .findAll()
                 .stream()
