@@ -3,7 +3,9 @@ package ru.yandex.yandexlavka.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.yandexlavka.exceptions.general.InvalidRequestException;
+import ru.yandex.yandexlavka.dto.courier.CourierDto;
+import ru.yandex.yandexlavka.exceptions.courier.InvalidCreateCourierRequestException;
+import ru.yandex.yandexlavka.exceptions.courier.InvalidGetCouriersQueryParamsException;
 import ru.yandex.yandexlavka.request.CreateCourierRequest;
 import ru.yandex.yandexlavka.response.CreateCourierResponse;
 import ru.yandex.yandexlavka.response.GetCouriersResponse;
@@ -24,7 +26,7 @@ public class CourierController {
     ) {
         createCourierRequestValidator.validate(createCourierRequest, bindingResult);
         if (bindingResult.hasErrors()) {
-            throw new InvalidRequestException();
+            throw new InvalidCreateCourierRequestException();
         }
         return courierService.createCouriers(createCourierRequest);
     }
@@ -37,8 +39,13 @@ public class CourierController {
         try {
             return courierService.getCouriersWithLimitAndOffset(limit, offset);
         } catch (NumberFormatException e) {
-            throw new InvalidRequestException();
+            throw new InvalidGetCouriersQueryParamsException();
         }
+    }
+
+    @GetMapping("/{courier_id}")
+    public CourierDto getCourier(@PathVariable(name = "courier_id") long courierId){
+        return courierService.getCourierByIdOrThrow(courierId);
     }
 
 

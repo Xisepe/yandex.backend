@@ -64,11 +64,8 @@ public class CourierServiceImpl implements CourierService {
 
     @Override
     public CourierDto getCourierByIdOrThrow(long courierId) {
-        Optional<Courier> courier = courierRepository.findById(courierId);
-        if (courier.isEmpty()) {
-            throw new CourierNotFoundException();
-        }
-        return courierToCourierDtoMapper.mapToDto(courier.get());
+        Courier courier = courierRepository.findById(courierId).orElseThrow(CourierNotFoundException::new);
+        return courierToCourierDtoMapper.mapToDto(courier);
     }
 
     @Override

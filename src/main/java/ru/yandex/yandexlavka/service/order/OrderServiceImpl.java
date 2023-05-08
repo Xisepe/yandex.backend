@@ -3,6 +3,7 @@ package ru.yandex.yandexlavka.service.order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.yandex.yandexlavka.domain.order.Order;
+import ru.yandex.yandexlavka.domain.order.OrderStatus;
 import ru.yandex.yandexlavka.dto.order.CompleteOrder;
 import ru.yandex.yandexlavka.dto.order.CreateOrderRequest;
 import ru.yandex.yandexlavka.dto.order.OrderDto;
@@ -15,6 +16,8 @@ import ru.yandex.yandexlavka.response.OrderAssignResponse;
 import ru.yandex.yandexlavka.service.mapper.order.CreateOrderDtoToOrderMapper;
 import ru.yandex.yandexlavka.service.mapper.order.OrderToOrderDtoMapper;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,22 +51,30 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto getOrderByIdOrThrow(long orderId) {
-        Optional<Order> order = orderRepository.findById(orderId);
-        if (order.isEmpty()) {
-            throw new OrderNotFoundException();
-        }
-        return orderToOrderDtoMapper.mapToDto(order.get());
+        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
+        return orderToOrderDtoMapper.mapToDto(order);
     }
 
     @Override
     public List<OrderDto> completeOrders(CompleteOrderRequestDto completeOrderRequestDto) {
+        List<Order> completedOrders = new ArrayList<>();
         for (CompleteOrder completeOrder : completeOrderRequestDto.getCompleteInfo()) {
-            Optional<Order> order = orderRepository.findById(completeOrder.getOrderId());
-            if (order.isEmpty()) {
+            Order complete = orderRepository
+                    .findById(completeOrder.getOrderId())
+                    .orElseThrow(InvalidCompleteOrderRequestDtoException::new);
+            if (completeOrderPredicate(complete, completeOrder)) {
                 throw new InvalidCompleteOrderRequestDtoException();
             }
+            complete.setCompleteTime(LocalDateTime.parse(completeOrder.getCompleteTime()));
+            completedOrders.add(complete);
         }
-        return null;
+        orderRepository.saveAll(completedOrders);
+        return completedOrders.stream().map(orderToOrderDtoMapper::mapToDto).toList();
+    }
+
+    private boolean completeOrderPredicate(Order order, CompleteOrder completeOrder) {
+        return   order.getStatus() != OrderStatus.ATTACHED
+                || order.getCourier().getId() != completeOrder.getCourierId();
     }
 
     @Override
