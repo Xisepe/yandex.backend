@@ -1,13 +1,13 @@
 package ru.yandex.yandexlavka.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import ru.yandex.yandexlavka.dto.courier.CourierDto;
 
 import java.util.List;
 
 @Data
-public class CreateCourierResponse {
-    @JsonProperty("couriers")
+public class GetCouriersResponse {
     private List<CourierDto> couriers;
+    private int limit;
+    private int offset;
 }
