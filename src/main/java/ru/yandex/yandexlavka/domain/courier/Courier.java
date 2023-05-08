@@ -2,6 +2,7 @@ package ru.yandex.yandexlavka.domain.courier;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.yandex.yandexlavka.domain.order.Order;
 
 import java.util.List;
 
@@ -27,5 +28,11 @@ public class Courier {
             mappedBy = "courier"
     )
     private List<CourierRegion> region;
+    @OneToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            fetch = FetchType.LAZY,
+            mappedBy = "courier"
+    )
+    private List<Order> orders;
 
 }
