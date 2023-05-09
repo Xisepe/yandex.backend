@@ -25,6 +25,6 @@ public class OrderToOrderDtoMapper implements DomainToDtoMapper<Order, OrderDto>
         return orderDto;
     }
     private String mapDeliveryHourToString(DeliveryHour deliveryHour) {
-        return String.format("%s-%s",deliveryHour.getStart().toString(), deliveryHour.getEnd().toString());
+        return String.format("%s-%s",deliveryHour.getStart().toString(), deliveryHour.getFinish().toString());
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue
@@ -24,9 +25,9 @@ public class Order {
     private List<DeliveryHour> deliveryHours;
     private int cost;
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.EMPTY;
+    private OrderStatus status;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "courierId")
+    @JoinColumn(name = "courier_id")
     private Courier courier;
     private LocalDateTime completeTime;
 }

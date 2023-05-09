@@ -1,5 +1,6 @@
 package ru.yandex.yandexlavka.service.validator.courier;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -7,6 +8,7 @@ import ru.yandex.yandexlavka.domain.courier.CourierType;
 import ru.yandex.yandexlavka.dto.courier.CreateCourierDto;
 import ru.yandex.yandexlavka.request.CreateCourierRequest;
 
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -36,13 +38,15 @@ public class CreateCourierRequestValidator implements Validator {
             for (String workingHour : courier.getWorkingHours()) {
                 if (workingHour.matches(".+-.+")) {
                     String[] split = workingHour.split("-");
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
                     try {
-                        formatter.parse(split[0]);
-                        formatter.parse(split[1]);
+                        LocalTime.parse(split[0]);
+                        LocalTime.parse(split[1]);
                     } catch (DateTimeParseException e) {
                         errors.reject("workingHours");
                     }
+                } else {
+                    errors.reject("time");
+                    break;
                 }
             }
         }

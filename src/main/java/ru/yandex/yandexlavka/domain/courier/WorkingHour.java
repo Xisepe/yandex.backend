@@ -12,9 +12,9 @@ public class WorkingHour {
     @GeneratedValue
     private Long id;
     private LocalTime start;
-    private LocalTime end;
+    private LocalTime finish;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "courierId")
+    @JoinColumn(name = "courier_id")
     private Courier courier;
 
 }

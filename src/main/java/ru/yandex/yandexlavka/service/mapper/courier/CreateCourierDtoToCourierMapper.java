@@ -20,9 +20,9 @@ public class CreateCourierDtoToCourierMapper implements DtoToDomainMapper<Create
                             String[] split = e.split("-");
                             WorkingHour workingHour = new WorkingHour();
                             LocalTime start = LocalTime.parse(split[0]);
-                            LocalTime end = LocalTime.parse(split[1]);
+                            LocalTime finish = LocalTime.parse(split[1]);
                             workingHour.setStart(start);
-                            workingHour.setEnd(end);
+                            workingHour.setFinish(finish);
                             workingHour.setCourier(courier);
                             return workingHour;
                         })

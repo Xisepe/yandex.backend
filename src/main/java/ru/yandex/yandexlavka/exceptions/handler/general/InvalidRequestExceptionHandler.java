@@ -1,14 +1,11 @@
 package ru.yandex.yandexlavka.exceptions.handler.general;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import ru.yandex.yandexlavka.exceptions.general.InvalidRequestException;
 import ru.yandex.yandexlavka.response.BadRequestResponse;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class InvalidRequestExceptionHandler {
     @ExceptionHandler(InvalidRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

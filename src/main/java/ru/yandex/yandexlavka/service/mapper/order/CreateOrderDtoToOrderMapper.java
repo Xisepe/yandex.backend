@@ -3,6 +3,7 @@ package ru.yandex.yandexlavka.service.mapper.order;
 import org.springframework.stereotype.Component;
 import ru.yandex.yandexlavka.domain.order.DeliveryHour;
 import ru.yandex.yandexlavka.domain.order.Order;
+import ru.yandex.yandexlavka.domain.order.OrderStatus;
 import ru.yandex.yandexlavka.dto.order.CreateOrderDto;
 import ru.yandex.yandexlavka.service.mapper.DtoToDomainMapper;
 
@@ -19,6 +20,7 @@ public class CreateOrderDtoToOrderMapper implements DtoToDomainMapper<CreateOrde
                         .map(e->parseDeliveryHour(e, order))
                         .toList()
         );
+        order.setStatus(OrderStatus.EMPTY);
         order.setWeight(dto.getWeight());
         return order;
     }
@@ -27,7 +29,7 @@ public class CreateOrderDtoToOrderMapper implements DtoToDomainMapper<CreateOrde
         deliveryHour.setOrder(order);
         String[] split = time.split("-");
         deliveryHour.setStart(LocalTime.parse(split[0]));
-        deliveryHour.setEnd(LocalTime.parse(split[1]));
+        deliveryHour.setFinish(LocalTime.parse(split[1]));
         return deliveryHour;
     }
 }

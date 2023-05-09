@@ -15,7 +15,6 @@ import ru.yandex.yandexlavka.service.mapper.courier.CourierToCourierDtoMapper;
 import ru.yandex.yandexlavka.service.mapper.courier.CreateCourierDtoToCourierMapper;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
