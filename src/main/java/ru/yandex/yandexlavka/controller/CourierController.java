@@ -1,17 +1,16 @@
 package ru.yandex.yandexlavka.controller;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.yandexlavka.dto.courier.CourierDto;
-import ru.yandex.yandexlavka.exceptions.courier.InvalidCreateCourierRequestException;
 import ru.yandex.yandexlavka.request.CreateCourierRequest;
 import ru.yandex.yandexlavka.response.CreateCourierResponse;
+import ru.yandex.yandexlavka.response.GetCourierMetaInfoResponse;
 import ru.yandex.yandexlavka.response.GetCouriersResponse;
 import ru.yandex.yandexlavka.service.courier.CourierService;
-import ru.yandex.yandexlavka.service.validator.courier.CreateCourierRequestValidator;
 
 @RestController
 @RequestMapping("/couriers")
@@ -19,17 +18,11 @@ import ru.yandex.yandexlavka.service.validator.courier.CreateCourierRequestValid
 @Validated
 public class CourierController {
     private final CourierService courierService;
-    private final CreateCourierRequestValidator createCourierRequestValidator;
 
     @PostMapping
     public CreateCourierResponse postCouriers(
-            @RequestBody CreateCourierRequest createCourierRequest,
-            BindingResult bindingResult
+            @RequestBody @Valid CreateCourierRequest createCourierRequest
     ) {
-        createCourierRequestValidator.validate(createCourierRequest, bindingResult);
-        if (bindingResult.hasErrors()) {
-            throw new InvalidCreateCourierRequestException();
-        }
         return courierService.createCouriers(createCourierRequest);
     }
 
@@ -44,6 +37,13 @@ public class CourierController {
     @GetMapping("/{courier_id}")
     public CourierDto getCourier(@PathVariable(name = "courier_id") long courierId) {
         return courierService.getCourierByIdOrThrow(courierId);
+    }
+
+    @GetMapping("/meta-info/{courier_id}")
+    public GetCourierMetaInfoResponse getCourierMetaInfo(
+            @PathVariable(name = "courier_id") long courierId
+    ){
+        return null;
     }
 
 

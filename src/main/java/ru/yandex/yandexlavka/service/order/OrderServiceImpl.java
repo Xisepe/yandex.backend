@@ -7,7 +7,6 @@ import ru.yandex.yandexlavka.domain.order.OrderStatus;
 import ru.yandex.yandexlavka.dto.order.CompleteOrder;
 import ru.yandex.yandexlavka.dto.order.CreateOrderRequest;
 import ru.yandex.yandexlavka.dto.order.OrderDto;
-import ru.yandex.yandexlavka.exceptions.general.InvalidRequestException;
 import ru.yandex.yandexlavka.exceptions.order.InvalidCompleteOrderRequestDtoException;
 import ru.yandex.yandexlavka.exceptions.order.OrderNotFoundException;
 import ru.yandex.yandexlavka.repository.order.OrderRepository;
@@ -19,7 +18,6 @@ import ru.yandex.yandexlavka.service.mapper.order.OrderToOrderDtoMapper;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

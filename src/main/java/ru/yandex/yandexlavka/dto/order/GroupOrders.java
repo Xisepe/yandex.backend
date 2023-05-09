@@ -1,6 +1,7 @@
 package ru.yandex.yandexlavka.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.Valid;
 import lombok.Data;
 
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.List;
 public class GroupOrders {
     @JsonProperty("group_order_id")
     private long id;
+
     @JsonProperty("orders")
+    @Valid
     private List<OrderDto> orders;
 }
