@@ -1,0 +1,687 @@
+{
+	"info": {
+		"_postman_id": "afd8d7c2-f504-4a62-a921-2ad214f39b4a",
+		"name": "yandex.backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21796036"
+	},
+	"item": [
+		{
+			"name": "CourierControllerTests",
+			"item": [
+				{
+					"name": "PostCouriersPOSITIVE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"couriers\": [\r\n    {\r\n      \"courier_type\": \"FOOT\",\r\n      \"regions\": [\r\n        1, 2\r\n      ],\r\n      \"working_hours\": [\r\n        \"12:30-14:30\",\r\n        \"15:10-20:00\"\r\n      ]\r\n    },\r\n    {\r\n      \"courier_type\": \"AUTO\",\r\n      \"regions\": [\r\n        3\r\n      ],\r\n      \"working_hours\": [\r\n        \"15:10-20:00\"\r\n      ]\r\n    },\r\n    {\r\n      \"courier_type\": \"BIKE\",\r\n      \"regions\": [\r\n        4\r\n      ],\r\n      \"working_hours\": [\r\n        \"12:30-14:30\"\r\n      ]\r\n    },\r\n    {\r\n      \"courier_type\": \"AUTO\",\r\n      \"regions\": [\r\n        1, 2, 5\r\n      ],\r\n      \"working_hours\": [\r\n        \"12:30-14:30\",\r\n        \"15:10-20:00\"\r\n      ]\r\n    },\r\n    {\r\n      \"courier_type\": \"BIKE\",\r\n      \"regions\": [\r\n        88\r\n      ],\r\n      \"working_hours\": [\r\n        \"12:30-14:30\",\r\n        \"15:10-20:00\",\r\n        \"22:15-23:59\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/couriers",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"couriers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCouriersWrongTimeNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"couriers\": [\r\n    {\r\n      \"courier_type\": \"AUTO\",\r\n      \"regions\": [\r\n        1\r\n      ],\r\n      \"working_hours\": [\r\n        \"13:00-25:20\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/couriers",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"couriers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCouriersWrongTimeFormatNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"couriers\": [\r\n    {\r\n      \"courier_type\": \"AUTO\",\r\n      \"regions\": [\r\n        1\r\n      ],\r\n      \"working_hours\": [\r\n        \"13:00|23:20\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/couriers",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"couriers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCouriersWrongTypeNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"couriers\": [\r\n    {\r\n      \"courier_type\": \"PLANE\",\r\n      \"regions\": [\r\n        3\r\n      ],\r\n      \"working_hours\": [\r\n        \"13:00-22:20\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/couriers",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"couriers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCouriersWrongRegionNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"couriers\": [\r\n    {\r\n      \"courier_type\": \"FOOT\",\r\n      \"regions\": [\r\n        -12\r\n      ],\r\n      \"working_hours\": [\r\n        \"13:00-22:20\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/couriers",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"couriers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllCouriersPOSITIVE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/couriers?limit={{correct_limit}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"couriers"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{correct_limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCouriersWrongLimitQueryNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}:{{port}}/couriers?limit={{wrong_limit}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"couriers"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{wrong_limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCouriersWrongOffsetQueryNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}:{{port}}/couriers?offset={{wrong_offset}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"couriers"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "{{wrong_offset}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCourierByIdPositive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}:{{port}}/couriers/{{present_id}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"couriers",
+								"{{present_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCourierByIdNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}:{{port}}/couriers/{{not_found_id}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"couriers",
+								"{{not_found_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "OrderControllerTests",
+			"item": [
+				{
+					"name": "PostCreateOrdersPositive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orders\": [\r\n    {\r\n      \"weight\": 1.0,\r\n      \"regions\": 23,\r\n      \"delivery_hours\": [\r\n        \"04:36-03:10\"\r\n      ],\r\n      \"cost\": 10\r\n    },\r\n    {\r\n      \"weight\": 12.0,\r\n      \"regions\": 22,\r\n      \"delivery_hours\": [\r\n        \"04:36-03:10\"\r\n      ],\r\n      \"cost\": 10\r\n    },{\r\n      \"weight\": 12.5,\r\n      \"regions\": 23,\r\n      \"delivery_hours\": [\r\n        \"04:22-03:10\"\r\n      ],\r\n      \"cost\": 10\r\n    },{\r\n      \"weight\": 1.0,\r\n      \"regions\": 23,\r\n      \"delivery_hours\": [\r\n        \"04:36-14:10\"\r\n      ],\r\n      \"cost\": 10\r\n    },{\r\n      \"weight\": 12222.0,\r\n      \"regions\": 2343,\r\n      \"delivery_hours\": [\r\n        \"04:36-03:10\"\r\n      ],\r\n      \"cost\": 10\r\n    },{\r\n      \"weight\": 1.0,\r\n      \"regions\": 23,\r\n      \"delivery_hours\": [\r\n        \"04:36-03:10\"\r\n      ],\r\n      \"cost\": 10\r\n    },{\r\n      \"weight\": 1.0,\r\n      \"regions\": 23,\r\n      \"delivery_hours\": [\r\n        \"04:36-03:10\"\r\n      ],\r\n      \"cost\": 10\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/orders",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCreateOrderWrongWeightNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orders\": [\r\n    {\r\n      \"weight\": -100,\r\n      \"regions\": 1,\r\n      \"delivery_hours\": [\r\n        \"00:00-12:20\"\r\n      ],\r\n      \"cost\": 144\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/orders",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCreateOrderWrongRegionNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orders\": [\r\n    {\r\n      \"weight\": 100,\r\n      \"regions\": -2,\r\n      \"delivery_hours\": [\r\n        \"00:00-12:20\"\r\n      ],\r\n      \"cost\": 144\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/orders",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCreateOrderWrongTimeNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orders\": [\r\n    {\r\n      \"weight\": 100,\r\n      \"regions\": 2,\r\n      \"delivery_hours\": [\r\n        \"25:00-12:20\"\r\n      ],\r\n      \"cost\": 144\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/orders",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCreateOrderWrongCostNegative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orders\": [\r\n    {\r\n      \"weight\": 100,\r\n      \"regions\": 2,\r\n      \"delivery_hours\": [\r\n        \"05:00-12:20\"\r\n      ],\r\n      \"cost\": -2\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}:{{port}}/orders",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "port",
+			"value": "8080",
+			"type": "string"
+		},
+		{
+			"key": "correct_limit",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "wrong_limit",
+			"value": "-1",
+			"type": "string"
+		},
+		{
+			"key": "correct_offset",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "wrong_offset",
+			"value": "-1",
+			"type": "string"
+		},
+		{
+			"key": "present_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "not_found_id",
+			"value": "10000",
+			"type": "string"
+		}
+	]
+}
