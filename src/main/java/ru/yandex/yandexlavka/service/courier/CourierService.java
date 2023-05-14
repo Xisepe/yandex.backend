@@ -7,10 +7,12 @@ import ru.yandex.yandexlavka.response.GetCourierMetaInfoResponse;
 import ru.yandex.yandexlavka.response.GetCouriersResponse;
 import ru.yandex.yandexlavka.response.OrderAssignResponse;
 
+import java.time.LocalDate;
+
 public interface CourierService {
     OrderAssignResponse getCourierAssignmentByDateAndId(String date, long courierId);
     CreateCourierResponse createCouriers(CreateCourierRequest createCourierRequest);
     GetCouriersResponse getCouriersWithLimitAndOffset(int limit, int offset);
     CourierDto getCourierByIdOrThrow(long courierId);
-    GetCourierMetaInfoResponse getCourierMetaInfoByIdAndStartDateAndEndDate(long courierId, String startDate, String endDate);
+    GetCourierMetaInfoResponse getCourierMetaInfoByIdAndStartDateAndEndDate(long courierId, LocalDate startDate, LocalDate endDate);
 }

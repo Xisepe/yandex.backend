@@ -12,6 +12,8 @@ import ru.yandex.yandexlavka.response.GetCourierMetaInfoResponse;
 import ru.yandex.yandexlavka.response.GetCouriersResponse;
 import ru.yandex.yandexlavka.service.courier.CourierService;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/couriers")
 @RequiredArgsConstructor
@@ -41,9 +43,11 @@ public class CourierController {
 
     @GetMapping("/meta-info/{courier_id}")
     public GetCourierMetaInfoResponse getCourierMetaInfo(
-            @PathVariable(name = "courier_id") long courierId
-    ){
-        return null;
+            @PathVariable(name = "courier_id") long courierId,
+            @RequestParam(name = "startDate") LocalDate startDate,
+            @RequestParam(name = "endDate") LocalDate endDate
+            ){
+        return courierService.getCourierMetaInfoByIdAndStartDateAndEndDate(courierId, startDate, endDate);
     }
 
 
