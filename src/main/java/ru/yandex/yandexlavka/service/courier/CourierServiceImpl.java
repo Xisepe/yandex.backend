@@ -1,15 +1,18 @@
 package ru.yandex.yandexlavka.service.courier;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import ru.yandex.yandexlavka.domain.coefficient.EarningCoefficient;
 import ru.yandex.yandexlavka.domain.coefficient.RatingCoefficient;
 import ru.yandex.yandexlavka.domain.courier.Courier;
 import ru.yandex.yandexlavka.domain.courier.CourierMetaInfo;
+import ru.yandex.yandexlavka.domain.order.Assignment;
 import ru.yandex.yandexlavka.domain.order.Order;
 import ru.yandex.yandexlavka.dto.courier.CourierDto;
 import ru.yandex.yandexlavka.exceptions.courier.CourierNotFoundException;
 import ru.yandex.yandexlavka.repository.courier.CourierRepository;
+import ru.yandex.yandexlavka.repository.order.AssignmentRepository;
 import ru.yandex.yandexlavka.repository.order.OrderRepository;
 import ru.yandex.yandexlavka.request.CreateCourierRequest;
 import ru.yandex.yandexlavka.response.CreateCourierResponse;
@@ -19,6 +22,7 @@ import ru.yandex.yandexlavka.response.OrderAssignResponse;
 import ru.yandex.yandexlavka.service.mapper.courier.CourierMetaInfoToCourierMetaInfoResponseMapper;
 import ru.yandex.yandexlavka.service.mapper.courier.CourierToCourierDtoMapper;
 import ru.yandex.yandexlavka.service.mapper.courier.CreateCourierDtoToCourierMapper;
+import ru.yandex.yandexlavka.service.mapper.order.AssignmentToCouriersGroupOrdersMapper;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,16 +35,31 @@ public class CourierServiceImpl implements CourierService {
 
     private final CourierRepository courierRepository;
     private final OrderRepository orderRepository;
+    private final AssignmentRepository assignmentRepository;
     private final CourierToCourierDtoMapper courierToCourierDtoMapper;
     private final CreateCourierDtoToCourierMapper createCourierDtoToCourierMapper;
     private final CourierMetaInfoToCourierMetaInfoResponseMapper courierMetaInfoToCourierMetaInfoResponseMapper;
+    private final AssignmentToCouriersGroupOrdersMapper assignmentToCouriersGroupOrdersMapper;
     private final EarningCoefficient earningCoefficient;
     private final RatingCoefficient ratingCoefficient;
 
     @Override
-    public OrderAssignResponse getCourierAssignmentByDateAndId(String date, long courierId) {
+    public OrderAssignResponse getCourierAssignmentByDateAndId(LocalDate date, Long courierId) {
+        List<Assignment> assignments;
 
-        return null;
+        if (courierId != null) {
+            assignments = assignmentRepository.findAllByDateAndCourierId(date, courierId);
+        } else {
+            assignments = assignmentRepository.findAllByDate(date);
+        }
+        OrderAssignResponse orderAssignResponse = new OrderAssignResponse();
+        orderAssignResponse.setDate(date.toString());
+        orderAssignResponse.setCouriers(
+                assignments.stream()
+                        .map(assignmentToCouriersGroupOrdersMapper::mapToDto)
+                        .toList()
+        );
+        return orderAssignResponse;
     }
 
     @Override

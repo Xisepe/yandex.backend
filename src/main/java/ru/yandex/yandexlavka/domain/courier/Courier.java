@@ -34,5 +34,4 @@ public class Courier {
             mappedBy = "courier"
     )
     private List<Order> orders;
-
 }
