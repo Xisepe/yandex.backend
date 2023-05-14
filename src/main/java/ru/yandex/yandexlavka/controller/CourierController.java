@@ -1,5 +1,6 @@
 package ru.yandex.yandexlavka.controller;
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class CourierController {
     private final CourierService courierService;
 
     @PostMapping
+    @RateLimiter(name = "defaultRateLimiter")
     public CreateCourierResponse postCouriers(
             @RequestBody @Valid CreateCourierRequest createCourierRequest
     ) {
@@ -29,6 +31,7 @@ public class CourierController {
     }
 
     @GetMapping
+    @RateLimiter(name = "defaultRateLimiter")
     public GetCouriersResponse getCouriers(
             @RequestParam(defaultValue = "1", required = false) @Min(0) int limit,
             @RequestParam(defaultValue = "0", required = false) @Min(0) int offset
@@ -37,12 +40,14 @@ public class CourierController {
     }
 
     @GetMapping("/{courier_id}")
+    @RateLimiter(name = "defaultRateLimiter")
     public CourierDto getCourier(@PathVariable(name = "courier_id") long courierId) {
         return courierService.getCourierByIdOrThrow(courierId);
     }
 
     @GetMapping("/meta-info/{courier_id}")
-    public GetCourierMetaInfoResponse getCourierMetaInfo(
+    @RateLimiter(name = "defaultRateLimiter")
+        public GetCourierMetaInfoResponse getCourierMetaInfo(
             @PathVariable(name = "courier_id") long courierId,
             @RequestParam(name = "startDate") LocalDate startDate,
             @RequestParam(name = "endDate") LocalDate endDate

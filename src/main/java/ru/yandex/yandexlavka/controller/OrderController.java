@@ -1,5 +1,6 @@
 package ru.yandex.yandexlavka.controller;
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,12 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     @PostMapping
+    @RateLimiter(name = "defaultRateLimiter")
     public List<OrderDto> createOrders(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
         return orderService.createOrders(createOrderRequest);
     }
     @GetMapping
+    @RateLimiter(name = "defaultRateLimiter")
     public List<OrderDto> getOrders(
             @RequestParam(required = false, defaultValue = "1") @PositiveOrZero int limit,
             @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int offset
@@ -30,11 +33,13 @@ public class OrderController {
         return orderService.getOrdersWithLimitAndOffset(limit, offset);
     }
     @GetMapping("/{order_id}")
+    @RateLimiter(name = "defaultRateLimiter")
     public OrderDto getOrderById(@PathVariable(name = "order_id") long orderId) {
         return orderService.getOrderByIdOrThrow(orderId);
     }
 
     @PostMapping("/complete")
+    @RateLimiter(name = "defaultRateLimiter")
     public List<OrderDto> completeOrders(@RequestBody @Valid CompleteOrderRequestDto completeOrderRequestDto) {
         return orderService.completeOrders(completeOrderRequestDto);
     }
