@@ -23,7 +23,6 @@ public class CreateCourierDtoToCourierMapper implements DtoToDomainMapper<Create
                             LocalTime finish = LocalTime.parse(split[1]);
                             workingHour.setStart(start);
                             workingHour.setFinish(finish);
-                            workingHour.setCourier(courier);
                             return workingHour;
                         })
                         .toList()
@@ -33,7 +32,6 @@ public class CreateCourierDtoToCourierMapper implements DtoToDomainMapper<Create
                 dto.getRegions().stream()
                         .map(e->{
                             CourierRegion region = new CourierRegion();
-                            region.setCourier(courier);
                             region.setRegion(e);
                             return region;
                         })

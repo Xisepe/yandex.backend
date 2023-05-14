@@ -13,8 +13,4 @@ public class WorkingHour {
     private Long id;
     private LocalTime start;
     private LocalTime finish;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "courier_id")
-    private Courier courier;
-
 }

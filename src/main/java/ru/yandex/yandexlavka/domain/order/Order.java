@@ -19,9 +19,9 @@ public class Order {
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
-            orphanRemoval = true,
-            mappedBy = "order"
+            orphanRemoval = true
     )
+    @JoinColumn(name = "order_id")
     private List<DeliveryHour> deliveryHours;
     private int cost;
     @Enumerated(EnumType.STRING)

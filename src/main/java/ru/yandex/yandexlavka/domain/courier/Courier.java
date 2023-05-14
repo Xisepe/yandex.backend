@@ -16,17 +16,17 @@ public class Courier {
     private CourierType type;
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
             orphanRemoval = true,
-            mappedBy = "courier"
+            fetch = FetchType.LAZY
     )
+    @JoinColumn(name = "courier_id")
     private List<WorkingHour> workingHour;
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
-            orphanRemoval = true,
-            mappedBy = "courier"
+            orphanRemoval = true
     )
+    @JoinColumn(name = "courier_id")
     private List<CourierRegion> region;
     @OneToMany(
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},

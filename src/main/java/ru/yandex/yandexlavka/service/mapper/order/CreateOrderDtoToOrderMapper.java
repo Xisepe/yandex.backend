@@ -26,7 +26,6 @@ public class CreateOrderDtoToOrderMapper implements DtoToDomainMapper<CreateOrde
     }
     private DeliveryHour parseDeliveryHour(String time, Order order) {
         DeliveryHour deliveryHour = new DeliveryHour();
-        deliveryHour.setOrder(order);
         String[] split = time.split("-");
         deliveryHour.setStart(LocalTime.parse(split[0]));
         deliveryHour.setFinish(LocalTime.parse(split[1]));

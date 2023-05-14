@@ -13,7 +13,4 @@ public class CourierRegion {
     private Long id;
     @Column(name = "region")
     private int region;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "courierId")
-    private Courier courier;
 }
