@@ -9,10 +9,10 @@ import java.util.List;
 
 @Data
 public class CouriersGroupOrders {
-    @JsonProperty("courier_id")
+    @JsonProperty(value = "courier_id", required = true)
     private long courierId;
 
-    @JsonProperty("orders")
+    @JsonProperty(value = "orders", required = true)
     @Valid
     private List<GroupOrders> orders;
 }

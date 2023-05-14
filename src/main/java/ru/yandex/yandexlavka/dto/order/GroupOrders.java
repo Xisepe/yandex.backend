@@ -8,10 +8,10 @@ import java.util.List;
 
 @Data
 public class GroupOrders {
-    @JsonProperty("group_order_id")
+    @JsonProperty(value = "group_order_id", required = true)
     private long id;
 
-    @JsonProperty("orders")
+    @JsonProperty(value = "orders", required = true)
     @Valid
     private List<OrderDto> orders;
 }

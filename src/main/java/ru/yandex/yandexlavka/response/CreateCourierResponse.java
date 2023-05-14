@@ -8,6 +8,6 @@ import java.util.List;
 
 @Data
 public class CreateCourierResponse {
-    @JsonProperty("couriers")
+    @JsonProperty(value = "couriers", required = true)
     private List<CourierDto> couriers;
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class CreateCourierRequest {
-    @JsonProperty("couriers")
+    @JsonProperty(value = "couriers", required = true)
     @Valid
     private List<CreateCourierDto> couriers;
 }

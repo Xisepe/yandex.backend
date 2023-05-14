@@ -9,13 +9,13 @@ import java.util.List;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GetCourierMetaInfoResponse {
-    @JsonProperty("courier_id")
+    @JsonProperty(value = "courier_id", required = true)
     private long courierId;
-    @JsonProperty("courier_type")
+    @JsonProperty(value = "courier_type", required = true)
     private String courierType;
-    @JsonProperty("regions")
+    @JsonProperty(value = "regions", required = true)
     private List<Integer> regions;
-    @JsonProperty("working_hours")
+    @JsonProperty(value = "working_hours", required = true)
     private List<String> workingHours;
     @JsonProperty("rating")
     private Integer rating;

@@ -27,7 +27,7 @@ public class CreateCourierDtoToCourierMapper implements DtoToDomainMapper<Create
                         })
                         .toList()
         );
-        courier.setType(CourierType.valueOf(dto.getCourierType()));
+        courier.setType(dto.getCourierType());
         courier.setRegion(
                 dto.getRegions().stream()
                         .map(e->{

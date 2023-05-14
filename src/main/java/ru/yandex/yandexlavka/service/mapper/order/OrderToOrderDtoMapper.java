@@ -20,7 +20,7 @@ public class OrderToOrderDtoMapper implements DomainToDtoMapper<Order, OrderDto>
                         .toList()
         );
         if (domain.getCompleteTime() != null) {
-            orderDto.setCompletedTime(domain.getCompleteTime().toString());
+            orderDto.setCompletedTime(domain.getCompleteTime());
         }
         return orderDto;
     }

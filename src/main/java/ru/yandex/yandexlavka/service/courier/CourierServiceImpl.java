@@ -53,7 +53,7 @@ public class CourierServiceImpl implements CourierService {
             assignments = assignmentRepository.findAllByDate(date);
         }
         OrderAssignResponse orderAssignResponse = new OrderAssignResponse();
-        orderAssignResponse.setDate(date.toString());
+        orderAssignResponse.setDate(date);
         orderAssignResponse.setCouriers(
                 assignments.stream()
                         .map(assignmentToCouriersGroupOrdersMapper::mapToDto)

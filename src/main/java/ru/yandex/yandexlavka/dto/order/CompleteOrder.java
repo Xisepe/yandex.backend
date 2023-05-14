@@ -8,14 +8,12 @@ import java.time.LocalDateTime;
 
 @Data
 public class CompleteOrder {
-    @JsonProperty("courier_id")
+    @JsonProperty(value = "courier_id", required = true)
     private long courierId;
 
-    @JsonProperty("order_id")
+    @JsonProperty(value = "order_id", required = true)
     private long orderId;
 
-    @JsonProperty("complete_time")
-//    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$")
-//    private String completeTime;
+    @JsonProperty(value = "complete_time",required = true)
     private LocalDateTime completeTime;
 }

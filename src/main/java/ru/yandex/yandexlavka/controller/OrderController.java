@@ -40,7 +40,7 @@ public class OrderController {
 
     @PostMapping("/complete")
     @RateLimiter(name = "defaultRateLimiter")
-    public List<OrderDto> completeOrders(@RequestBody @Valid CompleteOrderRequestDto completeOrderRequestDto) {
+    public List<OrderDto> completeOrders(@RequestBody CompleteOrderRequestDto completeOrderRequestDto) {
         return orderService.completeOrders(completeOrderRequestDto);
     }
 
