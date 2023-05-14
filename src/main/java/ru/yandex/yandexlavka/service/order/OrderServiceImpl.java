@@ -64,6 +64,7 @@ public class OrderServiceImpl implements OrderService {
                 throw new InvalidCompleteOrderRequestDtoException();
             }
             complete.setCompleteTime(LocalDateTime.parse(completeOrder.getCompleteTime()));
+            complete.setStatus(OrderStatus.FINISHED);
             completedOrders.add(complete);
         }
         orderRepository.saveAll(completedOrders);
