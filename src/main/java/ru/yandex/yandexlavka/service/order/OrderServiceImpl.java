@@ -2,6 +2,8 @@ package ru.yandex.yandexlavka.service.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.yandex.yandexlavka.domain.courier.Courier;
+import ru.yandex.yandexlavka.domain.order.Assignment;
 import ru.yandex.yandexlavka.domain.order.Order;
 import ru.yandex.yandexlavka.domain.order.OrderStatus;
 import ru.yandex.yandexlavka.dto.order.CompleteOrder;
@@ -9,6 +11,8 @@ import ru.yandex.yandexlavka.dto.order.CreateOrderRequest;
 import ru.yandex.yandexlavka.dto.order.OrderDto;
 import ru.yandex.yandexlavka.exceptions.order.InvalidCompleteOrderRequestDtoException;
 import ru.yandex.yandexlavka.exceptions.order.OrderNotFoundException;
+import ru.yandex.yandexlavka.repository.courier.CourierRepository;
+import ru.yandex.yandexlavka.repository.order.AssignmentRepository;
 import ru.yandex.yandexlavka.repository.order.OrderRepository;
 import ru.yandex.yandexlavka.request.CompleteOrderRequestDto;
 import ru.yandex.yandexlavka.response.OrderAssignResponse;
@@ -23,6 +27,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final CourierRepository courierRepository;
+    private final AssignmentRepository assignmentRepository;
     private final CreateOrderDtoToOrderMapper createOrderDtoToOrderMapper;
     private final OrderToOrderDtoMapper orderToOrderDtoMapper;
 
