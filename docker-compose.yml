@@ -25,7 +25,6 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
 
-
   db:
     container_name: yandex-lavka-db
     image: postgres:15.2
